@@ -1,0 +1,126 @@
+[build-system]
+requires = ["setuptools>=42"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "my-agent"
+version = "0.1.0"
+description = "A collection of AI agents for image generation, built with different frameworks and models."
+requires-python = ">=3.10"
+
+# Core deps shared by every agent
+dependencies = [
+    "httpx>=0.27",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+# pip install -e ".[anthropic]"
+anthropic = [
+    "anthropic>=0.40",
+]
+
+# pip install -e ".[adk]"
+adk = [
+    "google-adk>=0.5",
+]
+
+# pip install -e ".[litellm]"  (needed by agent_adk and agent_adk_openai)
+litellm = [
+    "litellm>=1.40",
+]
+
+# pip install -e ".[whatsapp]"  (Twilio webhook server)
+whatsapp = [
+    "google-adk>=0.5",
+    "litellm>=1.40",
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+    "twilio>=9.0",
+]
+
+# pip install -e ".[newsletter]"  (tech newsletter research agent + WhatsApp webhook)
+newsletter = [
+    "anthropic>=0.40",
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+    "twilio>=9.0",
+]
+
+# pip install -e ".[tech-finder]"  (WhatsApp tech news search agent)
+tech-finder = [
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+    "twilio>=9.0",
+]
+
+# ── Hub extras — one per Railway service ──────────────────────────────────────
+
+# pip install -e ".[hub]"  (legacy combined hub — whatsapp_hub/agent_whatsapp_hub)
+hub = [
+    "anthropic>=0.40",
+    "google-adk>=0.5",
+    "litellm>=1.40",
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+]
+
+# pip install -e ".[hub-creative]"  (hubs/hub_creative — image gen + prompt writing)
+hub-creative = [
+    "anthropic>=0.40",    # LiteLLM needs this to route to Claude Sonnet
+    "google-adk>=0.5",
+    "litellm>=1.40",
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+    # httpx and python-dotenv in core
+]
+
+# pip install -e ".[hub-tech]"  (hubs/hub_tech — tech news finder + deep research)
+hub-tech = [
+    "anthropic>=0.40",    # Claude native web search
+    "google-adk>=0.5",
+    "litellm>=1.40",
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+]
+
+# pip install -e ".[hub-newsletter]"  (hubs/hub_newsletter — Tech Blueprint newsletter)
+hub-newsletter = [
+    "anthropic>=0.40",    # Claude native web search
+    "google-adk>=0.5",
+    "litellm>=1.40",
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+]
+
+# pip install -e ".[hub-personal]"  (hubs/hub_personal — web search, summarise, Notion)
+hub-personal = [
+    "anthropic>=0.40",    # Claude web search + summarisation
+    "google-adk>=0.5",
+    "litellm>=1.40",
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+]
+
+# pip install -e ".[hub-finance]"  (hubs/hub_finance — subscription tracker)
+hub-finance = [
+    "anthropic>=0.40",    # LiteLLM needs this to route to Claude Sonnet
+    "google-adk>=0.5",
+    "litellm>=1.40",
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+]
+
+# pip install -e ".[all]"  — installs everything
+all = [
+    "anthropic>=0.40",
+    "google-adk>=0.5",
+    "litellm>=1.40",
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+    "twilio>=9.0",
+    # httpx and python-dotenv already in core dependencies
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
